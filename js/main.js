@@ -51,6 +51,31 @@ function initMobileNavigation() {
     document.body.appendChild(backdrop);
   }
 
+  // Inject Mobile Drawer Header with brand and Close (X) button
+  let drawerHeader = navMenu.querySelector('.mobile-drawer-header');
+  if (!drawerHeader) {
+    drawerHeader = document.createElement('div');
+    drawerHeader.className = 'mobile-drawer-header';
+    drawerHeader.innerHTML = `
+      <div class="drawer-brand">
+        <span class="drawer-brand-name">VitaCliniq<span>CRO</span></span>
+      </div>
+      <button class="drawer-close-btn" aria-label="Close menu" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    `;
+    navMenu.insertBefore(drawerHeader, navMenu.firstChild);
+
+    const closeBtn = drawerHeader.querySelector('.drawer-close-btn');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMenu(false);
+      });
+    }
+  }
+
   const toggleMenu = (open) => {
     const shouldOpen = open !== undefined ? open : !navMenu.classList.contains('open');
     if (shouldOpen) {
@@ -58,22 +83,26 @@ function initMobileNavigation() {
       hamburger.classList.add('active');
       backdrop.classList.add('active');
       document.body.classList.add('menu-open');
+      document.documentElement.classList.add('menu-open');
       hamburger.setAttribute('aria-expanded', 'true');
     } else {
       navMenu.classList.remove('open');
       hamburger.classList.remove('active');
       backdrop.classList.remove('active');
       document.body.classList.remove('menu-open');
+      document.documentElement.classList.remove('menu-open');
       hamburger.setAttribute('aria-expanded', 'false');
     }
   };
 
   hamburger.addEventListener('click', (e) => {
+    e.preventDefault();
     e.stopPropagation();
     toggleMenu();
   });
 
-  backdrop.addEventListener('click', () => {
+  backdrop.addEventListener('click', (e) => {
+    e.preventDefault();
     toggleMenu(false);
   });
 
@@ -96,9 +125,20 @@ function initMobileNavigation() {
     }
   });
 
-  // Close drawer when regular navigation links are clicked
-  navMenu.querySelectorAll('a:not(.nav-item.has-dropdown > .nav-link)').forEach(link => {
-    link.addEventListener('click', () => {
+  // Close drawer when links (including dropdown items) are clicked
+  navMenu.querySelectorAll('a').forEach(link => {
+    if (!link.classList.contains('nav-link') || !link.closest('.has-dropdown')) {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 1024) {
+          toggleMenu(false);
+        }
+      });
+    }
+  });
+
+  // Handle sub-item clicks inside dropdown
+  navMenu.querySelectorAll('.dropdown-item').forEach(subLink => {
+    subLink.addEventListener('click', () => {
       if (window.innerWidth <= 1024) {
         toggleMenu(false);
       }

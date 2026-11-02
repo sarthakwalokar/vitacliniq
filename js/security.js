@@ -261,7 +261,7 @@
   }, true);
 
   /* ==========================================================================
-     7. DevTools Detection & Shield Overlay
+     7. DevTools Shield Notice (Triggered on shortcut or inspection attempts)
      ========================================================================== */
   let devToolsShield = null;
 
@@ -317,36 +317,6 @@
     }
   }
 
-  // Detect docked DevTools by window size threshold
-  function checkWindowDiff() {
-    const widthDiff = window.outerWidth - window.innerWidth > 160;
-    const heightDiff = window.outerHeight - window.innerHeight > 160;
-    if (widthDiff || heightDiff) {
-      setDevToolsLock(true);
-    } else {
-      setDevToolsLock(false);
-    }
-  }
-
-  window.addEventListener('resize', checkWindowDiff);
-  setInterval(checkWindowDiff, 1500);
-
-  // Anti-debugging loop (halts execution if devtools is open and stepping)
-  function antiDebugLoop() {
-    setInterval(() => {
-      const start = performance.now();
-      (function () { return false; }["constructor"]("debugger")());
-      const duration = performance.now() - start;
-      if (duration > 100) {
-        setDevToolsLock(true);
-      }
-    }, 1500);
-  }
-
-  try {
-    antiDebugLoop();
-  } catch (e) {}
-
   /* ==========================================================================
      8. Wipe & Disable Console
      ========================================================================== */
@@ -368,3 +338,4 @@
     createDevToolsShield();
   }
 })();
+
