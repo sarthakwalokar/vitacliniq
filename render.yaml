@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: bluebase
+    name: vitacliniq
     runtime: static
     buildCommand: ""
     staticPublishPath: .
@@ -39,3 +39,4 @@ services:
       - type: rewrite
         source: /contact
         destination: /contact.html
+
