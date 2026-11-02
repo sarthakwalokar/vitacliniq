@@ -1,0 +1,71 @@
+# Robots.txt for VitaCliniq Global Research CRO
+# Anti-AI Scraping, Crawling & Content Duplication Directive
+# All AI ingestion, scraping and content mining are strictly prohibited.
+
+User-agent: *
+Disallow: /
+
+# OpenAI / ChatGPT Web Browsing & Crawlers
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ChatGPT-User
+Disallow: /
+
+# Anthropic Claude Crawlers & Web Browsing
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Claude-Web
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+# Perplexity AI Scraper
+User-agent: PerplexityBot
+Disallow: /
+
+# Google Gemini Training Crawler
+User-agent: Google-Extended
+Disallow: /
+
+# Common Crawl (Universal AI training dataset)
+User-agent: CCBot
+Disallow: /
+
+# ByteDance AI Scrapers
+User-agent: Bytespider
+Disallow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Disallow: /
+
+# Meta / Facebook AI Crawlers
+User-agent: FacebookBot
+Disallow: /
+
+# Amazon AI
+User-agent: Amazonbot
+Disallow: /
+
+# Apple AI Crawlers
+User-agent: Applebot-Extended
+Disallow: /
+
+# Automated Scrapers & Content Mining Tools
+User-agent: Diffbot
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+User-agent: Scrapy
+Disallow: /
+
+User-agent: YouBot
+Disallow: /
+
+User-agent: Timpibot
+Disallow: /

@@ -2436,3 +2436,43 @@ h1, h2, h3, h4, h5, h6 {
     left: 1rem;
   }
 }
+
+/* ==========================================================================
+   ADVANCED SECURITY, ANTI-INSPECT, ANTI-COPY & PRINT PROTECTION
+   ========================================================================== */
+*, *::before, *::after {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+
+/* Allow interaction with form controls */
+input, textarea, select, [contenteditable="true"] {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+/* Prevent image dragging, saving and context callout */
+img {
+  -webkit-touch-callout: none !important;
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+  pointer-events: none !important;
+}
+
+/* Allow links wrapping images to remain clickable */
+a, button {
+  -webkit-touch-callout: none !important;
+}
+
+/* Block Print / Export to PDF (bypasses copy-paste protections) */
+@media print {
+  html, body {
+    display: none !important;
+    visibility: hidden !important;
+  }
+}
