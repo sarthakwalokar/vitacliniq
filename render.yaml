@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: bluebase
+    runtime: static
+    buildCommand: ""
+    staticPublishPath: .
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=()
+      - path: /*
+        name: X-Robots-Tag
+        value: noindex, nofollow, noai, noimageai
+    routes:
+      - type: rewrite
+        source: /about
+        destination: /about.html
+      - type: rewrite
+        source: /services
+        destination: /services.html
+      - type: rewrite
+        source: /our-people
+        destination: /our-people.html
+      - type: rewrite
+        source: /therapeutics
+        destination: /therapeutics.html
+      - type: rewrite
+        source: /global-reach
+        destination: /global-reach.html
+      - type: rewrite
+        source: /contact
+        destination: /contact.html
